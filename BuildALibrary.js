@@ -24,7 +24,7 @@ class Media {
     getAverageRating() {
         let ratingSum = this._ratings.reduce((accumulator, currentValue) => accumulator + currentValue);
         const lengthOfArray = this._ratings.length;
-        return ratingSum / lengthOfArray;
+        return Math.round((ratingSum / lengthOfArray) * 10) / 10;
     }
 
     toggleCheckOutStatus() {
@@ -38,8 +38,8 @@ class Media {
 
 // Book Class
 class Book extends Media {
-    constructor(author, title, pages, isCheckedOut, ratings) {
-        super(title, isCheckedOut, ratings);
+    constructor(author, title, pages) {
+        super(title);
         this._author = author;
         this._pages = pages;
     }
@@ -55,8 +55,8 @@ class Book extends Media {
 
 // Movie class
 class Movie extends Media {
-    constructor(director, title, runTime, isCheckedOut, ratings) {
-        super(title, isCheckedOut, ratings);
+    constructor(director, title, runTime) {
+        super(title);
         this._director = director;
         this._runTime = runTime;
     }
@@ -72,8 +72,8 @@ class Movie extends Media {
 
 // CD class
 class CD extends Media {
-    constructor(artist, title, isCheckedOut, ratings, songs) {
-        super(title, isCheckedOut, ratings);
+    constructor(artist, title, songs) {
+        super(title);
         this._artist = artist;
         this._songs = songs;
     }
@@ -86,3 +86,19 @@ class CD extends Media {
         return this._songs;
     }
 }
+
+const historyOfEverything = new Book('Bill Bryson', 'A Short History of Nearly Everything', 544);
+historyOfEverything.toggleCheckOutStatus();
+console.log(historyOfEverything.isCheckedOut);
+historyOfEverything.addRating(4);
+historyOfEverything.addRating(5);
+historyOfEverything.addRating(5);
+console.log(historyOfEverything.getAverageRating());
+
+const speed = new Movie('Jan de Bont', 'Speed', 116);
+speed.toggleCheckOutStatus();
+console.log(speed.isCheckedOut);
+speed.addRating(1);
+speed.addRating(1);
+speed.addRating(5);
+console.log(speed.getAverageRating());
